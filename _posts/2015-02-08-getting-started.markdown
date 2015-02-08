@@ -39,28 +39,28 @@ There are three types
 - [OSM Way Wiki](http://wiki.openstreetmap.org/wiki/Way)
 
 ### Points
-![](/img/node.png)
+![]({{site.baseurl}}/img/node.png)
 
 Points or nodes are used to represent **point features** such as place names.
 
-![](/img/point_ex.png)
+![]({{site.baseurl}}/img/point_ex.png)
 
 ### Ways
-![](/img/way.png)
+![]({{site.baseurl}}/img/way.png)
 
 Ways are used to represent linear features such as streams, boundaries or roads (highways).
 
-![](/img/way_ex.png)
+![]({{site.baseurl}}/img/way_ex.png)
 
 
 ### Areas
-![](/img/Screen Shot 2015-02-09 at 01.26.30.png)
+![]({{site.baseurl}}/img/Screen Shot 2015-02-09 at 01.26.30.png)
 
 Areas in the GIS sense can be though of as polygons. They are in fact made up of points and ways which are related together.
 
 This feature is used for such things as buildings, land areas, etc.
 
-![](/img/area_ex.png)
+![]({{site.baseurl}}/img/area_ex.png)
 
 
 
@@ -83,11 +83,11 @@ Make sure you have an OpenStreetMap Account. If you don’t you can sign up for 
 
 Next you will need to connect your OSM account to HOT OSM. The Task Manager on the Humanitarian OpenStreetMap website allows us to coordinate our efforts to map Lesotho. You should go to the website at [tasks.hotosm.org](http://tasks.hotosm.org)
 
-![](/img/screen-shot-2014-10-13-at-22-42-05.png)
+![]({{site.baseurl}}/img/screen-shot-2014-10-13-at-22-42-05.png)
 
 You will now be asked to **Login** with the same details as your OpenStreetMap user account. In my case this is **RustyB**. You will get a screen like below where you must allow the HOTOSM app to read your preferences in order to complete the process.
 
-![](/img/screen-shot-2014-10-13-at-22-45-41.png)
+![]({{site.baseurl}}/img/screen-shot-2014-10-13-at-22-45-41.png)
 
 You will be brought back to the HOTOSM Task Manager homepage. Here in the list on the left you will see all the current mapping tasks available which you can contribute to. So say we want to find our Lesotho Tasks? We can do this by typing Lesotho in the search box. This can tell us a few things about the task.
 
@@ -95,7 +95,7 @@ There is a progress bar showing **percentage complete** in orange. The **percent
 
 We can can also see the number of people working on the task at this very moment beside the percentage complete.
 
-![](/img/screen-shot-2014-10-13-at-22-48-10.png)
+![]({{site.baseurl}}/img/screen-shot-2014-10-13-at-22-48-10.png)
 
 ## Now Let's Map!
 
@@ -106,17 +106,17 @@ On the left you will see some instructions for how to **complete tiles** in the 
 ## Pick your first tile
 Now zoom in on the map, so that you can see the tiles more clearly. The clear ones are available to be **taken (locked)** by you for mapping. To select a tile simply click on the tile you want. It will now go a bluey/purple colour and more information will appear on the left under the **contribute** tab. You will notice there is a comments section, this allows you to see the history of this tile. People will leave helpful comments, such as the one left by **Enock4seth **below. They are suggesting the **satellite **imagery is cloudy and not easy to trace. We’re going to ignore that for the purposes of the guide.
 
-![](/img/screen-shot-2014-10-13-at-23-00-44.png)
+![]({{site.baseurl}}/img/screen-shot-2014-10-13-at-23-00-44.png)
 
 Click **START MAPPING**! You will see an orange  stroked box around your tile to indicate it is locked to a user.
 
 Now the most important part is to select your preferred tool to edit with, you can do this now by clicking the dropdown arrow which will present you with the same menu as below. My preferred editor at this stage is the **iD Editor** as I don’t have to leave the browser. Click this to open OSM.org to begin editing the map. Now you will see the real butter that makes** HOT OSM Task Manager** so great!
 
-![](/img/screen-shot-2014-10-13-at-23-08-17.png)
+![]({{site.baseurl}}/img/screen-shot-2014-10-13-at-23-08-17.png)
 
 Next this will open up the iD Editor, and you will see the magenta square this is the outline of your tile:
 
-![](/img/screen-shot-2014-10-13-at-23-08-39-1.png)
+![]({{site.baseurl}}/img/screen-shot-2014-10-13-at-23-08-39-1.png)
 
 You should make all your changes within this area. Make sure to save your edits regularly.
 
