@@ -79,7 +79,7 @@ This feature is used for such things as buildings, land areas, etc.
 ## **HOTOSM Guidance**
 Make sure you have an OpenStreetMap Account. If you don’t you can sign up for one at [www.openstreetmap.org/user/new](http://www.openstreetmap.org/user/new)
 
-![](/img/openstreetmapsignup.png)
+![]({{site.baseurl}}/img/openstreetmapsignup.png)
 
 Next you will need to connect your OSM account to HOT OSM. The Task Manager on the Humanitarian OpenStreetMap website allows us to coordinate our efforts to map Lesotho. You should go to the website at [tasks.hotosm.org](http://tasks.hotosm.org)
 
