@@ -42,6 +42,14 @@ geometry ST_Buffer(geometry g1, float radius_of_buffer);
 
 Above are two examples of how the buffer works visually. You can apply it to points, lines and polygons. The query will return **polygon geometry type**.
 
+{% highlight ruby %}
+# Buffer all buildings by 100m
+CREATE TABLE test AS
+SELECT ST_Union(ST_Buffer(way, 100)) AS the_geom
+FROM planet_osm_polygon
+WHERE building = 'yes'
+{% endhighlight %}
+
 ## Extra Resources
 - [**An Introduction Course to OpenGeo Suite.** This will introduce you to the different tools which come with this package and how you can use them to serve up a web map][intro_opengeo]
 - [**Introduction to PostGIS.** This course will show you each of the geospatial functions that are part of PostGIS and how you can use them under different scenarios][intro_postgis]
