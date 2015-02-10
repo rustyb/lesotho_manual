@@ -9,7 +9,7 @@ categories: update
 ## Requirements
 - Must have OpenGeo Suite Installed - [Download OpenGeoSuite][open_geo]
 - QGIS Installed - [Download QGIS][qgis]
-- Must have loaded the lesotho database into PostGIS. For instructions see - [**Day 2 - Loading OSM Data to Database**]({% post_url 2015-02-09-loading-osm-data %})
+- Must have loaded the lesotho database into PostGIS. For instructions see - [**Day 2 - Loading OSM Data to Database**]({% post_url 2015-02-10-loading-osm-data %})
 
 ### **Contents**
 
