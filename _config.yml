@@ -2,13 +2,13 @@
 title: MapLesotho Manual
 email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  This mini site has been created to serve a guide to follow the training
+  by Fingal County Council to the Planners of Lesotho. Each post details the steps
+  to be followed perform spatial analysis on OSM Lesotho data.
 baseurl: "/lesotho_manual" # the subpath of your site, e.g. /blog/
 url: "http://rustyb.github.io" # the base hostname & protocol for your site
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: rusty1052
+github_username:  rustyb/lesotho_manual
 
 # Build settings
 markdown: kramdown
