@@ -1,99 +1,47 @@
 ---
 layout: post
-title:  "Day 2 - Loading OSM Data to Database"
-date:   2015-02-10 08:00:00
+title:  "Day 2 - Counting Nearby Features"
+date:   2015-02-09
 categories: update
 ---
-**Loading your OSM Data for Students of planning course run by Fingal County Council in Maseru 09/02/2015**
+**THIS IS A DRAFT AND THEREFORE NOT COMPLETE**
 
 ## Requirements
 - Must have OpenGeo Suite Installed - [Download OpenGeoSuite][open_geo]
 - QGIS Installed - [Download QGIS][qgis]
-- **Have a copy of lesotho_osm1.tar file from Colin**
+- Must have loaded the lesotho database into PostGIS. For instructions see - [**Day 2 - Loading OSM Data to Database**]({% post_url 2015-02-09-loading-osm-data %})
 
 ### **Contents**
 
-1. [Open PgAdmin](#open-pgadmin)
-2. [Open PostGIS Database](#open-postgis-database)
-3. [Create Lesotho Database](#create-lesotho-database)
-4. [Load in data from tar file](#load-in-data-from-tar-file)
 5. [Extra Resources](#extra-resources)
 
 
-## Open PgAdmin
-Go to the start menu and look for OpenGeoSuite 3.x. Under this group you will find **PgAdmin**. Click this to open it.
+Today we are going to find out how many buildings there are within 100 meters of road (highway) in all of Lesotho. To do this we will use the functionality of PostGIS and then we will use QGIS to view the results of this.
 
-![open pg admin]({{site.baseurl}}/img/day2/pgadmin.png)
+Furthermore we can then update our query to show us the numbers of each type of building which are within 100m of the road.
 
-## Open PostGIS Database
-Double click on **PostGIS** database on the left. 
+First we must understand one thing about PostGIS. This is how does it store it's geometry. It does this in a format called **WKB** (Well Known Binary). It the column of our table which contains this information which makes our GIS database so powerful. We run all our spatial queries against it.
 
-Next a prompt will show asking for a password.
+| Tables        | Geometry Column           | CRS Projection  |
+| ------------- |:-------------:| -----:|
+| planet_osm_line      | **way** | 900913 - Google Mercator (m) |
+| planet_osm_point      | **way**      |   900913 - Google Mercator (m) |
+| planet_osm_polygon |  **way**     |    900913 - Google Mercator (m) | 
 
-You should then enter whatever the password is for your normal windows login. Then click OK.
 
-![open pg admin]({{site.baseurl}}/img/day2/login.png)
+To do this we will use the ```ST_Buffer``` function from PostGIS. This create a buffer around the objects just like you would do in a desktop GIS.
 
-## Create Lesotho Database
-{% highlight ruby %}
-CREATE DATABASE lesotho;
-{% endhighlight %}
-
-Right click on the **Databases**. Then click **New Database**.
-![open pg admin]({{site.baseurl}}/img/day2/newdb.png)
-
-Enter **lesotho** as the name for the new database and **click OK**.
-![open pg admin]({{site.baseurl}}/img/day2/newdb1.png)
-
-Now click on the lesotho database to load it up.
-
-Click on **SQL button** in the top bar.
-
-![open pg admin]({{site.baseurl}}/img/day2/sqlq1.png)
-
-Type in the following to window that is now open.
+Using ```ST_Buffer``` is as simple as below. We supply it some geometry and then set the distance we would like to buffer. In our case we will use 100m as we know the data is stored with a CRS where the unit of measurement is in meters.
 
 {% highlight ruby %}
-CREATE EXTENSION postgis;
+geometry ST_Buffer(geometry g1, float radius_of_buffer);
 {% endhighlight %}
 
-You must then click the **Execute Query** button at the top. When the query has finished running it looks like the image below.
-![open pg admin]({{site.baseurl}}/img/day2/exc.png)
+![stbuffer1]({{site.baseurl}}/img/day2/st_buffer01.png)
+![stbuffer1]({{site.baseurl}}/img/day2/st_buffer03.png)
 
-## Load in data from tar file
-Now in this step we need to make sure we have a copy of the ```lesotho_osm1.tar``` file on our computer. This is required for the next few actions.
-
-Close the SQL Query window. When prompted to save the query, **Click NO**.
-
-Next right click on the lesotho database and choose **Restore **from the menu.
-
-![restore db]({{site.baseurl}}/img/day2/restore.png)
-
-This window will open. Now click the ```...``` and locate the ```lesotho_osm1.tar``` file. When you have selected the file click ok.
-
-![restore db]({{site.baseurl}}/img/day2/restore1.png)
-
-Now click **Restore**. This will take a few minutes before the query finishes.
-
-![restore db]({{site.baseurl}}/img/day2/restore2.png)
-
-When this finishes **click the X** to close the window. Now go to the tables section under the lesotho database (lesotho => Schemas => public => tables). You should now have the same tables as below:
-
-![restore db]({{site.baseurl}}/img/day2/restore3.png)
-
-Congratulations you now have your OSM data in a database which you can use with QGIS.
+Above are two examples of how the buffer works visually. You can apply it to points, lines and polygons. The query will return **polygon geometry type**.
 
 ## Extra Resources
 - [**An Introduction Course to OpenGeo Suite.** This will introduce you to the different tools which come with this package and how you can use them to serve up a web map][intro_opengeo]
 - [**Introduction to PostGIS.** This course will show you each of the geospatial functions that are part of PostGIS and how you can use them under different scenarios][intro_postgis]
-
-
-
-
-
-
-[open_geo]:        http://boundlessgeo.com/solutions/opengeo-suite/download/
-[qgis]:	           http://www2.qgis.org/en/site/
-[qgis_tuts]:       http://www.qgistutorials.com
-[intro_opengeo]:   http://workshops.boundlessgeo.com/suiteintro/
-[intro_postgis]:   http://workshops.boundlessgeo.com/postgis-intro/
