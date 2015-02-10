@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Day 2 - Loading OSM Data to Database"
-date:   2015-02-09
+date:   2015-02-10
 categories: update
 ---
 **Loading your OSM Data for Students of planning course run by Fingal County Council in Maseru 09/02/2015**

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Day 2 - Counting Nearby Features"
-date:   2015-02-09
+date:   2015-02-10
 categories: update
 ---
 **THIS IS A DRAFT AND THEREFORE NOT COMPLETE**
