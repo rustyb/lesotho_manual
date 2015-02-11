@@ -82,6 +82,19 @@ This will allow us to only show streams and rivers throughout Lesotho.
 
 ### Load Lesotho Database
 
+Extract all features for Leribe.
+
+{% highlight ruby %}
+CREATE TABLE leribe AS
+SELECT * FROM planet_osm_line
+WHERE ST_Intersects(
+(SELECT way AS the_geom
+FROM planet_osm_polygon
+WHERE 	admin_level = '5'  AND 
+	boundary = 'administrative' AND 
+	name = 'Leribe District'), way) 
+{% endhighlight %}
+
 ### Create the 300m waterway buffers / potential flood areas
 {% highlight ruby %}
 CREATE TABLE river_buffer_300 AS
