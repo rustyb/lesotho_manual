@@ -104,6 +104,15 @@ WHERE waterway IN ('stream', 'river')
 {% endhighlight %}
 
 ### Count the buildings within flood area.
+{% highlight ruby %}
+CREATE TABLE buildings_in_danger AS
+(SELECT bs.way, bs.building
+FROM 
+	lirebe_river_buffer_300 as rb, 
+	lesotho_buildings as bs
+WHERE 
+	ST_Intersects(bs.way,rb.the_geom))
+{% endhighlight %}
 
 ### ss
 
