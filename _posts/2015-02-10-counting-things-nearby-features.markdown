@@ -134,6 +134,14 @@ WHERE 	admin_level = '5' AND
 GROUP BY building
 {% endhighlight %}
 
+Count all buildings in the danger area.
+
+{% highlight ruby %}
+SELECT COUNT(*) 
+FROM buildings_in_danger
+GROUP BY building
+{% endhighlight %}
+
 ### ss
 
 

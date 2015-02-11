@@ -1,0 +1,61 @@
+---
+layout: post
+title:  "Day 4 - Road Reservations"
+date:   2015-02-12
+categories: update
+---
+**THIS IS A DRAFT AND THEREFORE NOT COMPLETE**
+
+### Road reservations
+- Focusing on appropriate development distance from roads. Spec. Primary Roads.
+- 15m either side from center line of road.
+	- Building features
+	- Power Lines
+	- Any permanent structure.
+
+Statistics on the number of permanent structures within this reservation.
+
+**Key Steps**
+
+1. Select all the primary roads. ```planet_osm_lines```
+2. Create a 15m buffer around the roads.
+3. Find all the buildings within the buffer zone.
+4. Find all power lines (line, poles), sewer lines (line, manholes), trees, billboards.
+5. Categorize structure distance from road centerline. (**0-5m, 6-10m, 11-15m**) 
+
+## Find all primary highways
+First we need to do some data discovery and find out what are the tags used for roads in Lesotho. We will do a count on all the highway tags to see if ```primary``` exists in the highway column.
+
+Open the PGadmin SQL window and paste in the following query:
+
+{% highlight ruby%}
+# display count of all highway tags
+SELECT highway, COUNT (*)
+FROM planet_osm_line
+WHERE highway IS NOT NULL
+GROUP BY highway
+{% endhighlight %}
+
+Now that we can see **primary** does exist we will now create a new table of just the **primary roads**.
+
+To do this we will use the ```WHERE``` clause so that only rows where the value in column ```highway``` is equal to ```primary```.
+
+Open the PGadmin SQL window and paste in the following query:
+
+{% highlight ruby%}
+# find and create table the primary roads
+CREATE TABLE primary_roads AS
+SELECT highway, way
+FROM planet_osm_line
+WHERE highway = 'primary'
+{% endhighlight %}
+
+You can then open QGIS and load the primary_roads table as a new layer.
+
+**Add PostGIS Layer -> Connect -> primary_roads -> Add**
+
+The first step is now complete.
+15 poles within buffer
+
+
+
