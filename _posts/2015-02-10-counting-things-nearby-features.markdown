@@ -37,13 +37,66 @@ Using ```ST_Buffer``` is as simple as below. We supply it some geometry and then
 geometry ST_Buffer(geometry g1, float radius_of_buffer);
 {% endhighlight %}
 
-![stbuffer1]({{site.baseurl}}/img/day2/st_buffer01.png)
-![stbuffer1]({{site.baseurl}}/img/day2/st_buffer03.png)
 
 Above are two examples of how the buffer works visually. You can apply it to points, lines and polygons. The query will return **polygon geometry type**.
 
+## Creating Buffers
+We can create buffers of a certain distance around any spatial row within the database. To do this we use a function call ```ST_Buffer()```. So first a bit about how the SQL queries work when using ```ST_Buffer()```.
+
+You need to supply it the geometry for each row and then the GIS create a polygon buffer of as many meters you specify around the features. An illustration of how this works is in the image below:
+
+![stbuffer1]({{site.baseurl}}/img/day2/st_buffer01.png)
+![stbuffer1]({{site.baseurl}}/img/day2/st_buffer03.png)
+
+The query takes this form below, where:
+
+- *geometry* = the input table geometry
+- *geometry g1* = the input geometry field 
+- *float radius_of_buffer* = a real number in distance such as 100 or 200.
+
 {% highlight ruby %}
+geometry ST_Buffer(geometry g1, float radius_of_buffer);
+{% endhighlight %}
+
+**For a full reference manual on buffering see [ST_Buffer_Manual][st_buff_link]**
+
+## Find potential flood zones
+The key steps for this are as follows:
+
+- Open QGIS and add your ```buildings``` and ```waterways``` as separate layers.
+- Open PgAdmin and load up the ```lesotho``` database.
+- Create table of **300m buffers** around each of the waterways.
+- Use Postgres to count the number of buildings located in this flooding buffer area.
+- Show only the buildings located within the flooding buffer area.
+
+### Load buildings and waterways
+Add PostGIS Layers of the 
+
+Right click on the planet_osm_line then **click filter** and then filter for the streams and rivers.
+
+Use the following query to do so:
+
+	"waterways" IN ('stream', 'river')
+
+This will allow us to only show streams and rivers throughout Lesotho.
+
+### Load Lesotho Database
+
+### Create the 300m waterway buffers / potential flood areas
+{% highlight ruby %}
+CREATE TABLE river_buffer_300 AS
+SELECT ST_Union(ST_Buffer(way, 300)) AS the_geom
+FROM planet_osm_line
+WHERE waterway IN ('stream', 'river')
+{% endhighlight %}
+
+### Count the buildings within flood area.
+
+### ss
+
+
 # Buffer all buildings by 100m
+{% highlight ruby %}
 CREATE TABLE test AS
 SELECT ST_Union(ST_Buffer(way, 100)) AS the_geom
 FROM planet_osm_polygon
@@ -53,3 +106,5 @@ WHERE building = 'yes'
 ## Extra Resources
 - [**An Introduction Course to OpenGeo Suite.** This will introduce you to the different tools which come with this package and how you can use them to serve up a web map][intro_opengeo]
 - [**Introduction to PostGIS.** This course will show you each of the geospatial functions that are part of PostGIS and how you can use them under different scenarios][intro_postgis]
+
+[st_buff_link]: http://postgis.refractions.net/documentation/manual-1.4/ST_Buffer.html
