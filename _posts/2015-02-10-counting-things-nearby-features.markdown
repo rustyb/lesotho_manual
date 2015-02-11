@@ -114,6 +114,26 @@ WHERE
 	ST_Intersects(bs.way,rb.the_geom))
 {% endhighlight %}
 
+### Count all buildings in Leribe
+This query will count all of the buildings within Leribe. 
+
+First we select the buildings column from ```lesotho_buildings```
+
+Next we find where the buildings intersect with the leribe boundary polygon.
+
+Finally we group the count result by the building type.
+
+{% highlight ruby %}
+SELECT building, COUNT(*) FROM lesotho_buildings
+WHERE ST_Intersects(
+	(SELECT way AS the_geom
+FROM planet_osm_polygon
+WHERE 	admin_level = '5' AND 
+	boundary = 'administrative' AND 
+	name = 'Leribe District'), ST_Centroid(way))
+GROUP BY building
+{% endhighlight %}
+
 ### ss
 
 
