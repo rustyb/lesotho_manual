@@ -158,15 +158,22 @@ The resulting layer could look like below, where I have buildings already loaded
 
 ![buffer][buffer]
 
+We can now move onto the next step which is to quantify how many buildings are within each of the reservation zones.
 
 
+## Quantify number of structures in each zone
 {% highlight ruby %}
-### find buildings within buffer
-SELECT building, way FROM planet_osm_polygon
-WHERE ST_Intersects(
-	(SELECT the_geom
-FROM road_buffer_15 
-), ST_Centroid(way));
+CREATE TABLE buildings_in_reserve AS
+	25 AS dist,
+	(SELECT building, way FROM lesotho_buildings
+	WHERE 
+		ST_Intersects(
+			(
+				SELECT the_geom
+				FROM road_buffer_151 
+				WHERE dist = 25
+			), way
+		)) AS the_geom
 {% endhighlight %}
 
  
