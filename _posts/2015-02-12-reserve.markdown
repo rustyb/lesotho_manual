@@ -23,10 +23,26 @@ Statistics on the number of permanent structures within this reservation.
 4. Find all power lines (line, poles), sewer lines (line, manholes), trees, billboards.
 5. Categorize structure distance from road centerline. (**0-5m, 6-10m, 11-15m**) 
 
+## **Some Notes**
+
+Throughout this guide when Open PgAdmin SQL window is stated this means we should have the following screen open.
+
+![sqlwindow][sqlw]
+
+**Every Query should be execute unless otherwise stated!** To execute you can press ```F5``` on your keyboard or else click the same button indicated below:
+
+![sqlwindowe][sqlex]
+
+
 ## Find all primary highways
 First we need to do some data discovery and find out what are the tags used for roads in Lesotho. We will do a count on all the highway tags to see if ```primary``` exists in the highway column.
 
 Open the PGadmin SQL window and paste in the following query:
+
+	**QUERY EXPLANATION**
+	Here we get all the unique values of the highway column in the table planet_osm_line
+	and then count them. Next the result is aggregated by each different value within 
+	the highway column such as primary, seconadary, track, etc. 
 
 {% highlight ruby%}
 # display count of all highway tags
@@ -42,6 +58,11 @@ To do this we will use the ```WHERE``` clause so that only rows where the value 
 
 Open the PGadmin SQL window and paste in the following query:
 
+	**QUERY EXPLANATION**
+	In this query we find all the rows of the highway column in the table planet_osm_line
+	where the value is primary only.
+	We then add all these rows to a new table called primary_roads.
+
 {% highlight ruby%}
 # find and create table the primary roads
 CREATE TABLE primary_roads AS
@@ -55,7 +76,111 @@ You can then open QGIS and load the primary_roads table as a new layer.
 **Add PostGIS Layer -> Connect -> primary_roads -> Add**
 
 The first step is now complete.
+
+## Create the Roads Reservation
+This step follows on from the previous tutorials and follows the same basic query.
+
+We need to create a 15 meter buffer around the centerline of the road to represent the 15 meter reservation on either side of primary roads in Lesotho.
+
+To do this we will use the ST_Buffer(geom, 15m) function yet again. We will create a new table which contains the result of the buffering operation.
+
+Again we open the **PgAdmin SQL Query Window** and paste in the query below.
+
+	**QUERY EXPLANATION**
+	Draw a buffer around the roads centerline that is 15 meters wide. 
+	The buffer is first created around every line segment. 
+	Then we use union to dissolve/merge the buffers into one. 
+	Then we insert this buffer into a new table called Create a table called road_buffer from the result of querying the primary 
+	roads table. 
+	 
+This is how we can create just a single buffer.
+
+{% highlight ruby %}
+CREATE TABLE road_buffer_15 AS
+SELECT ST_Union(ST_Buffer(way, 15)) AS the_geom
+FROM primary_roads
+{% endhighlight %}
+
+We will need buffers at the following distances 5, 10, 15 and 25 meters. To do this we use the same query as a above but add more rows to the table. 
+
+**Copy and Paste this Query into you SQL Query Window.**
+
+{% highlight ruby %}
+DROP TABLE road_buffer_151;
+CREATE TABLE road_buffer_151 AS 
+SELECT ST_Union(ST_Buffer(way, 25)) AS the_geom, 25 AS dist
+FROM primary_roads;
+
+INSERT INTO road_buffer_151 (the_geom, dist)
+SELECT ST_Union(ST_Buffer(way, 15)) AS the_geom, 15
+FROM primary_roads;
+
+INSERT INTO road_buffer_151 (the_geom, dist)
+SELECT ST_Union(ST_Buffer(way, 10)) AS the_geom, 10
+FROM primary_roads;
+
+INSERT INTO road_buffer_151 (the_geom, dist)
+SELECT ST_Union(ST_Buffer(way, 5)) AS the_geom, 5
+FROM primary_roads;
+
+{% endhighlight %}
+
+Now **Open QGIS** and add the new table as a **New PostGIS Layer** ![pg][pg_layer]. 
+
+Find the layer in the list of tables and **Left Click** to select it. **Click Add.**
+
+![pg][layer1]
+
+**Double Click** on the layer in the **Layers Panel** on the left and **Click Styles.**
+
+![pg][layer2]
+
+From the top bar select the drop down and select Graduated.
+
+![pg][layer5] 
+
+Next we will apply some thematic styling to our layer. We will add a graduated red to yellow color from the center of the road. The 5 meter reservation will be red and the 25 meter will be yellow.
+
+On the right at **Mode** click the drop down and **Equal Interval** from the list. Change the number above this to **4**.
+
+Next check the **Invert** box beside **colour ramp**.
+
+For the **colour ramp** select the ```YlOrRd``` one from the list.
+
+**Click** the **Symbol box** above and then **change the transparency to 50%**
+
+You should end up with something looking like this.
+
+![pg][layer6] 
+
+
+The resulting layer could look like below, where I have buildings already loaded along side our river buffers from yesterday.
+
+![buffer][buffer]
+
+
+
+{% highlight ruby %}
+### find buildings within buffer
+SELECT building, way FROM planet_osm_polygon
+WHERE ST_Intersects(
+	(SELECT the_geom
+FROM road_buffer_15 
+), ST_Centroid(way));
+{% endhighlight %}
+
+ 
 15 poles within buffer
 
 
 
+[sqlw]: {{site.baseurl}}/img/day4/pgadmin_sql.png
+[sqlex]: {{site.baseurl}}/img/day4/pgadmin_ex.png
+[buffer]: {{site.baseurl}}/img/day4/buffer1.png
+[pg_layer]: {{site.baseurl}}/img/day4/postgis_button.png
+[layer]: {{site.baseurl}}/img/day4/layer.png
+[layer1]: {{site.baseurl}}/img/day4/layer1.png
+[layer2]: {{site.baseurl}}/img/day4/layer2.png
+[layer4]: {{site.baseurl}}/img/day4/layer4.png
+[layer5]: {{site.baseurl}}/img/day4/layer5.png
+[layer6]: {{site.baseurl}}/img/day4/grad_1.png
