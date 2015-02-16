@@ -204,16 +204,16 @@ We can now move onto the next step which is to quantify how many buildings are w
 	
 
 {% highlight ruby %}
-CREATE TABLE buildings_in_reserve AS
-	(SELECT building, way, 25 AS dist FROM lesotho_buildings
-	WHERE 
-		ST_Intersects(
-			(
-				SELECT the_geom
-				FROM road_buffer_151 
-				WHERE dist = 25
-			), ST_Centroid(way)
-		) AS the_geom) 
+--CREATE TABLE buildings_in_reserve AS
+--	(SELECT building, way, 25 AS dist FROM lesotho_buildings
+--	WHERE 
+--		ST_Intersects(
+--			(
+--				SELECT the_geom
+--				FROM road_buffer_151 
+--				WHERE dist = 25
+--			), ST_Centroid(way)
+--		) AS the_geom) 
 
 DROP TABLE IF EXISTS buildings_in_reserve;
 CREATE TABLE buildings_in_reserve AS
