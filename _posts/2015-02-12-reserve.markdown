@@ -4,16 +4,18 @@ title:  "Day 4 - Road Reservations"
 date:   2015-02-12
 categories: update
 ---
-**THIS IS A DRAFT AND THEREFORE NOT COMPLETE**
-
 ### Road reservations
+From discussions on Wednesday it was decided that we create a real world scenario that all APP's can use. This scenario is a basic review of all the
+different query types we have used so far.
+
+**The main objective is to identify all the permanent structures within notional road reservations of 15 and 25 meters.**
+
 - Focusing on appropriate development distance from roads. Spec. Primary Roads.
 - 15m either side from center line of road.
 	- Building features
 	- Power Lines
 	- Any permanent structure.
-
-Statistics on the number of permanent structures within this reservation.
+- Statistics on the number of permanent structures within this reservation.
 
 **Key Steps**
 
@@ -95,7 +97,10 @@ Again we open the **PgAdmin SQL Query Window** and paste in the query below.
 	 
 This is how we can create just a single buffer.
 
+**DO NOT RUN THIS SCRIPT**
+
 {% highlight ruby %}
+-- DO NOT EXECUTE
 CREATE TABLE road_buffer_15 AS
 SELECT ST_Union(ST_Buffer(way, 15)) AS the_geom
 FROM primary_roads
@@ -105,9 +110,27 @@ We will need buffers at the following distances 5, 10, 15 and 25 meters. To do t
 
 **Copy and Paste this Query into you SQL Query Window.**
 
+	**QUERY EXPLANATION**
+	This next query is in face 4 different queries. This query will create a table
+	which contains 4 rows, 1 for each buffer (5m, 10m, 15m and 25m)
+	In the first line we check if the table we wish to create is already in the
+	lesotho database or not.
+	
+	The first statement we check if the table road_buffer_151 exists, 
+	if it does delete it.
+	
+	Next we make a buffer around all the lines in the primary_roads 
+	table we created in the last step.
+	
+	We then use union to dissolve all of these into one multi polygon.
+	
+	This is then inserted into our new table we call 'road_buffer_151'
+
+**You should now Execute this query in the SQL Window**
+
 {% highlight ruby %}
-DROP TABLE road_buffer_151;
-CREATE TABLE road_buffer_151 AS 
+DROP TABLE IF EXISTS road_buffer_151;
+CREATE road_buffer_151 AS 
 SELECT ST_Union(ST_Buffer(way, 25)) AS the_geom, 25 AS dist
 FROM primary_roads;
 
@@ -162,22 +185,44 @@ We can now move onto the next step which is to quantify how many buildings are w
 
 
 ## Quantify number of structures in each zone
+
+	**QUERY EXPLANATION**
+	The aim of this query is to extract the houses which are located within the 25m
+	reservation. This will be repeated for each reservation distance (5m, 10m, 15m).
+	The buildings will be extracted to a new table called buildings_in_reserve.
+	When we insert the buildings we add a new column that refereces which buffer 
+	the building belongs to.
+	
+	We use one extra function here which finds the center point (ST_Centroid) of 
+	each building. This allows us to find the intersection between the buildings
+	and the reservations much faster.
+	
+	We supply Intersects with our first geometry (the 25m buffer only) and
+	the second geometry (the buildings center point).
+	
+	Only those buildings which intersect this buffer will be added to the table.
+	
+
 {% highlight ruby %}
 CREATE TABLE buildings_in_reserve AS
-	25 AS dist,
-	(SELECT building, way FROM lesotho_buildings
+	(SELECT building, way, 25 AS dist FROM lesotho_buildings
 	WHERE 
 		ST_Intersects(
 			(
 				SELECT the_geom
 				FROM road_buffer_151 
 				WHERE dist = 25
-			), way
-		)) AS the_geom
+			), ST_Centroid(way)
+		) AS the_geom) 
+
+DROP TABLE IF EXISTS buildings_in_reserve;
+CREATE TABLE buildings_in_reserve AS
+SELECT DISTINCT ls.building, ls.way, rb.dist
+FROM lesotho_buildings ls, road_buffer_151 rb 
+WHERE ST_Intersects((rb.the_geom), ST_Centroid(ls.way)) 
 {% endhighlight %}
 
- 
-15 poles within buffer
+
 
 
 
