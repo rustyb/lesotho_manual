@@ -10,9 +10,9 @@ Useful links to tutorials and various articles which are of use to you learning 
 
 [**Open Street Map Wiki**](http://wiki.openstreetmap.org) - Find out what every tag does.
 
-[**Osmosis**]() - Software which you can use to process your .osm file into postgres SQL database.
+[**Osmosis**](http://wiki.openstreetmap.org/wiki/Osmosis) - Software which you can use to process your .osm file into postgres SQL database.
 
-[**GeoFabrik - Lesotho Daily Download**]() - Here you can download the ```.osm.pbf``` and shapefiles which are updated daily. 
+[**GeoFabrik - Lesotho Daily Download**](http://download.geofabrik.de/africa/lesotho.html) - Here you can download the ```.osm.pbf``` and shapefiles which are updated daily. 
 
 [**OSMtoPGSQL**](http://learnosm.org/en/osm-data/osm2pgsql/) - Another tool to import the osm data into pgsql. What Colin used to create the features in the first place. Works on Mac/Linux at the moment. **DOES not work on windows at present.** Link will tell you how to use it.
 
