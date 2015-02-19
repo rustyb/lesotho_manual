@@ -18,7 +18,7 @@ Useful links to tutorials and various articles which are of use to you learning 
 
 [**OpenStreetMap Lesotho FB Group**](https://www.facebook.com/groups/1539200169678837/) - OSM Lesotho facebook group.
 
-[**#MapLesotho on Twitter**]()
+[**#MapLesotho on Twitter**](https://twitter.com/search?src=typd&q=%23MapLesotho) - Direct to the #MapLesotho hashtag list.
 
 [**MapLesotho Blog**](http://maplesotho.wordpress.com) - The Map Lesotho Blog. If you want to write something use the contact page on the blog.
 
