@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Day 2 - Counting Nearby Features"
+title:  "Day 2 - Counting Nearby Features with ST_Buffer"
 date:   2015-02-10
 categories: update
 ---
@@ -9,7 +9,7 @@ categories: update
 ## Requirements
 - Must have OpenGeo Suite Installed - [Download OpenGeoSuite][open_geo]
 - QGIS Installed - [Download QGIS][qgis]
-- Must have loaded the lesotho database into PostGIS. For instructions see - [**Day 2 - Loading OSM Data to Database**]({% post_url 2015-02-10-loading-osm-data %})
+- Must have loaded the lesotho database into PostGIS. For instructions see - [**Day 2 - Loading OSM Data to Database**]({% post_url 2015-02-09-loading-osm-data %})
 
 ### **Contents**
 
@@ -158,3 +158,5 @@ WHERE building = 'yes'
 - [**Introduction to PostGIS.** This course will show you each of the geospatial functions that are part of PostGIS and how you can use them under different scenarios][intro_postgis]
 
 [st_buff_link]: http://postgis.refractions.net/documentation/manual-1.4/ST_Buffer.html
+[intro_opengeo]: localhost:8080/
+[intro_postgis]: localhost:8080/

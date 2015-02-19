@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Getting Started with OSM"
-date:   2015-02-09 22:26:06
+date:   2015-02-09
 categories: update
 ---
 **Getting started manual for Students of planning course run by Fingal County Council in Maseru 09/02/2015**

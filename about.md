@@ -4,8 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+This is a manual to the classes run by Fingal County Council in Lesotho in February 2015. 
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+It serves as a guid to perform the basic GIS functions to extract useful information from OpenStreetMap data for Lesotho.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+These manuals assume that you have OpenGeoSuite installed and working correctly.
+
+This means you should have** PgAdmin 3**,** Postgres** and **PostGIS** started and finally **QGIS** for visualizing your results.
+
+

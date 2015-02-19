@@ -8,7 +8,7 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "/lesotho_manual" # the subpath of your site, e.g. /blog/
 url: "http://rustyb.github.io" # the base hostname & protocol for your site
 twitter_username: rusty1052
-github_username:  rustyb/lesotho_manual
+github_username:  
 
 # Build settings
 markdown: kramdown
