@@ -1,17 +1,23 @@
 ---
 layout: post
-title:  "Parse OSM"
+title:  "Parse OSM to database with osm2pgsql"
 date:   2015-02-20
 categories: update
 ---
-Run this once you have downloaded the osm.pbf file from geofabrik and it will create your OSM database tables for Lesotho.
+Run this once you have downloaded the [osm.pbf](http://download.geofabrik.de/africa/lesotho-latest.osm.pbf) file from geofabrik and it will create your OSM database tables for Lesotho.
 
 First create your database
 
-Then run SQL query as below:
+Then run SQL query to add the PostGIS functions to your created database as follows:
 
 	CREATE EXTENSION postgis;
 
 Open terminal and navigate 
 
 	osm2pgsql -U colinbroderick -d lesotho -c --slim lesotho-latest.osm.pbf
+
+
+## Resources
+- [Osm2pgsql] (http://wiki.openstreetmap.org/wiki/Osm2pgsql) - The easiest way to import .osm files to the database.
+- [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) - The original converter. Requires much more set up than osm2pgsql.
+- 
