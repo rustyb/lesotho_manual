@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "Parse OSM"
+date:   2015-02-20
+categories: update
+---
+Run this once you have downloaded the osm.pbf file from geofabrik and it will create your OSM database tables for Lesotho.
+
+First create your database
+
+Then run SQL query as below:
+
+	CREATE EXTENSION postgis;
+
+Open terminal and navigate 
+
+	osm2pgsql -U colinbroderick -d lesotho -c --slim lesotho-latest.osm.pbf
