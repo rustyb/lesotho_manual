@@ -6,18 +6,28 @@ categories: update
 ---
 Run this once you have downloaded the [osm.pbf](http://download.geofabrik.de/africa/lesotho-latest.osm.pbf) file from geofabrik and it will create your OSM database tables for Lesotho.
 
-First create your database
+First create your database using PgAdmin3:
+
+	CREATE DATABASE lesotho
 
 Then run SQL query to add the PostGIS functions to your created database as follows:
 
 	CREATE EXTENSION postgis;
 
-Open terminal and navigate 
+Open terminal and navigate to the folder containing your .osm.pbf file. You can then run the osm2pgsql command to convert the .osm file. You must first have osm2pgsql installed, see [resources section for links.](#some-references)
 
 	osm2pgsql -U colinbroderick -d lesotho -c --slim lesotho-latest.osm.pbf
 
+That's it you will now have three tables in your database named similar to the following:
 
-## Resources
-- [Osm2pgsql] (http://wiki.openstreetmap.org/wiki/Osm2pgsql) - The easiest way to import .osm files to the database.
-- [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) - The original converter. Requires much more set up than osm2pgsql.
-- 
+- ```planet_osm_point``` - geom column is ```way```
+- ```planet_osm_line``` - geom column is ```way```
+- ```planet_osm_polygon``` - geom column is ```way```
+
+These can then be loaded into QGIS using the **Add PostGIS Layer** option on the left side. For instance using the ```planet_osm_line``` table as your first layer, the unfiltered result will look like this:
+
+![]({{site.baseurl}}/img/import/qgis_first_load.png)
+
+## Some References
+- [Osm2pgsql](http://wiki.openstreetmap.org/wiki/Osm2pgsql) - The easiest way to import .osm files to the database.
+- [Osmosis](http://wiki.openstreetmap.org/wiki/Osmosis) - The original converter. Requires much more set up than osm2pgsql. 
