@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0" 
+  author="DaCor" 
+  icon="maplesotho_logo.png"
+  version="1.0_2016-02-18" 
+  shortdescription="Lesotho Specific Tags" 
+  description="Lesotho Specific Tags in Sesotho language">
+
+  <group name="MapLesotho" icon="maplesotho_logo.png">
+    <item name="Khotla" icon="presets/null" type="closedway">
+      <key key="traditional_court" value="khotla" />
+      <key key="landuse" value="traditional_court" />
+    </item>
+    <item name="Lesaka" icon="presets/null" type="closedway">
+      <key key="farmyard" value="lesaka" />
+      <key key="landuse" value="farmyard" />
+    </item>
+    <item name="Motebo" icon="presets/null" type="closedway">
+      <key key="farmyard" value="motebo" />
+      <key key="landuse" value="farmyard" />
+    </item>
+    <item name="Mokhoro" icon="presets/null" type="closedway">
+      <key key="hut" value="mokhoro" />
+      <key key="building" value="hut" />
+    </item>
+    <group name="Mophato" icon="presets/null">
+	    <item name="Mokhoro" icon="presets/null" type="closedway">
+	    	<key key="hut" value="mokhoro" />
+      		<key key="building" value="hut" />
+    	</item>
+    	<item name="Khotla La Banna" icon="presets/null" type="closedway">
+	    	<key key="area" value="yes" />
+      		<key key="access" value="private" />
+    	</item>
+    </group>
+    <group name="Lipatlo" icon="presets/null">
+    	<item name="Crossing with a hump" type="node">
+      		 <key key="highway" value="crossing" />
+  		     <key key="crossing" value="uncontrolled" />
+     		 <key key="traffic_calming" value="hump" />
+		</item>
+		<item name="Crossing without hump" type="node">
+ 		     <key key="highway" value="crossing" />
+  		     <key key="crossing" value="uncontrolled" /> 
+   		</item>
+   	</group>
+   	<group name="Spaza" icon="presets/null">
+   		<item name="Building" type="closedway" >
+   			<key key="building" value="shop" />
+   			<key key="shop" value="spaza" />
+   		</item>
+   		<item name="Retail Area" icon="presets/null">
+   			<key key="landuse" value="retail" />
+		</item>
+	</group>
+</group>
+</presets>
